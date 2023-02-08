@@ -35,8 +35,8 @@ View(lviv_prcp_dat)
 # Replace NA to 0
 lviv_prcp_dat[is.na(lviv_prcp_dat)] <- 0
 
-# As PRCP: Precipitation is in tenths of millimeters, we have to convert PRCP in mm
-lviv_prcp_dat$prcp <- 0.1*(lviv_prcp_dat$prcp)
+# As PRCP: Precipitation is in tenths of millimeters, we have to convert PRCP in m
+lviv_prcp_dat$prcp <- 0.0001*(lviv_prcp_dat$prcp)
 
 # To see the precipitation per year
 sum <- sum(lviv_prcp_dat$prcp)
@@ -46,8 +46,8 @@ sum
 # To convert daily precipitation data to hourly
 
 prec_lviv_hourly <- data.frame(
-  Date = d <- seq.POSIXt(from = as.POSIXct("2021-01-01 00:00:00", "%Y-%m-%d %H:%M:%S", tz = ""), 
-                         to = as.POSIXct("2021-12-31 23:00:00", "%Y-%m-%d %H:%M:%S", tz = ""), by = "hour"),
+  Date = d <- seq.POSIXt(from = as.POSIXct("2021-01-01 00:00:00", "%Y-%m-%d %H:%M:%S", tz = "GMT"), 
+                         to = as.POSIXct("2021-12-31 23:00:00", "%Y-%m-%d %H:%M:%S", tz = "GMT"), by = "hour"),
   prcp =  rep(lviv_prcp_dat$prcp/24, each = 24))
 
 
